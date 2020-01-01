@@ -60,7 +60,7 @@ resource "aws_security_group" "huz_sg" {
   ingress {
     from_port = 3000
     to_port = 3000
-    protocol = "http"
+    protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
