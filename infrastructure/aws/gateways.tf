@@ -18,7 +18,7 @@ resource "aws_instance" "huz_nat" {
   }
 }
 
-resource "aws_eip" "huz_eip_nat" {
+resource "aws_eip" "huz_nat_eip" {
   instance = "${aws_instance.huz_nat.id}"
   vpc = true
 }
