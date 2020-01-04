@@ -23,3 +23,24 @@ resource "aws_instance" "huz_instance" {
     Name = "huz_instance"
   }
 }
+
+resource "aws_db_subnet_group" "huz_db_subnet_group" {
+  name = "huz_db_subnet_group"
+  subnet_ids = ["${aws_subnet.huz_private_subnet_rds_1.id}", "${aws_subnet.huz_private_subnet_rds_2.id}"]
+  tags = {
+    Name = "huz_db_subnet_group"
+  }
+}
+
+resource "aws_db_instance" "huz_db" {
+  allocated_storage = 20
+  db_subnet_group_name = "${aws_db_subnet_group.huz_db_subnet_group.id}"
+  engine = "postgres"
+  engine_version = "11.5"
+  instance_class = "db.t2.micro"
+  name = "huz"
+  password = "password"
+  storage_type = "gp2"
+  username = "huzer"
+  vpc_security_group_ids = ["${aws_security_group.huz_nat_sg.id}"]
+}
